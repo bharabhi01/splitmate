@@ -1,0 +1,6 @@
+.signup-button {
+    display: flex !important;
+    justify-content: center !important;
+    background-color: #ea4c89 !important;
+    text-align: center !important;
+}
