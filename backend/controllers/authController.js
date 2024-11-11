@@ -16,7 +16,7 @@ exports.signup = async (req, res) => {
 
         const user = await User.create({ firstName, lastName, username, email, password });
         const token = generateToken(user._id);
-        res.status(201).json({ token, message: "User created successfully" });
+        res.status(200).json({ token, message: "User created successfully" });
     } catch (error) {
         res.status(500).json({ message: "Internal server error" });
     }

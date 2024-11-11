@@ -19,7 +19,7 @@ function App() {
     }
   }, []);
 
-  const handleLogIn = (token) => {
+  const handleLogin = (token) => {
     localStorage.setItem('token', token);
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     setIsAuthenticated(true);
@@ -36,7 +36,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login onLogIn={handleLogIn} />} />
+          <Route path='/login' element={<Login onLogin={handleLogin} />} />
 
           {isAuthenticated ? (
             <>

@@ -1,7 +1,6 @@
-// src/auth/Login.js
 import React, { useState } from 'react';
-import { Form, Button, Message, Segment } from 'semantic-ui-react';
-import axios from 'axios';
+import { Form, Button, Message } from 'semantic-ui-react';
+import authService from '../services/authService';
 
 const Login = ({ onLogin }) => {
     const [formData, setFormData] = useState({
@@ -10,6 +9,7 @@ const Login = ({ onLogin }) => {
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,13 +23,13 @@ const Login = ({ onLogin }) => {
         e.preventDefault();
         setLoading(true);
         setError('');
+        setSuccess('');
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, formData);
-            const token = response.data.token;
-
-            onLogin(token);
+            const response = await authService.login(formData.email, formData.password);
+            onLogin(response.token);
             setLoading(false);
+            setSuccess(response.message);
         } catch (err) {
             setLoading(false);
             setError(err.response?.data?.message || 'Login failed. Please try again.');
@@ -60,6 +60,7 @@ const Login = ({ onLogin }) => {
                 />
                 <Button primary type="submit">Login</Button>
                 {error && <Message error header="Error" content={error} />}
+                {success && <Message success header="Success" content={success} />}
             </Form>
         </div>
     );

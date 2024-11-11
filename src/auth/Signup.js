@@ -1,7 +1,8 @@
+// src/auth/Signup.js
 import React, { useState } from 'react';
-import { Form, Button, Message, Segment, Image, Grid } from 'semantic-ui-react';
-import axios from 'axios';
+import { Form, Button, Message, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import authService from '../services/authService';
 import '../styles/signup.css';
 
 const Signup = () => {
@@ -31,13 +32,19 @@ const Signup = () => {
         setSuccess(false);
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, formData);
+            await authService.signUp(
+                formData.firstName,
+                formData.lastName,
+                formData.username,
+                formData.email,
+                formData.password
+            );
             setLoading(false);
             setSuccess(true);
             setFormData({ firstName: '', lastName: '', username: '', email: '', password: '' });
         } catch (err) {
             setLoading(false);
-            setError(err.response?.data?.message || 'Something went wrong. Please try again.');
+            setError(err || 'Something went wrong. Please try again.');
         }
     };
 
@@ -45,11 +52,11 @@ const Signup = () => {
         <Grid style={{ margin: '50px' }}>
             <Grid.Row>
                 <Grid.Column width={8}>
-                    Hello
+                    {/* You can add an image or introductory text here if desired */}
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <h1>Create an account</h1>
-                    <h3 >Already have an account? <Link to="/login">Login</Link></h3>
+                    <h3>Already have an account? <Link to="/login">Login</Link></h3>
                     <Form onSubmit={handleSubmit} loading={loading} error={!!error} success={success}>
                         <Grid style={{ marginBottom: '1px' }}>
                             <Grid.Row>
