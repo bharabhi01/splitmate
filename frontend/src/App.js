@@ -14,6 +14,8 @@ function App() {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false); // Ensure state is set to false if no token
     }
   }, []);
 
@@ -36,7 +38,7 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login onLogin={handleLogin} />} />
 
-          {isAuthenticated ? (
+          {localStorage.getItem('token') ? (
             <>
               <Route path="/dashboard" element={<Dashboard />} />
             </>

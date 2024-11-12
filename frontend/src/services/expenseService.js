@@ -12,4 +12,9 @@ const addExpense = async (expenseData) => {
     }
 };
 
-export default { addExpense };
+const getExpenses = async () => {
+    const response = await axios.get(`${API_URL}/getexpense`);
+    return response.data;
+}
+
+export default { addExpense, getExpenses };
