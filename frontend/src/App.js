@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import axios from 'axios';
 import Signup from './auth/Signup';
 import Login from './auth/Login';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -22,7 +23,7 @@ function App() {
     setIsAuthenticated(true);
   };
 
-  const handleLogOut = () => {
+  const handleLogout = () => {
     localStorage.removeItem('token');
     delete axios.defaults.headers.common['Authorization'];
     setIsAuthenticated(false);
@@ -37,7 +38,7 @@ function App() {
 
           {isAuthenticated ? (
             <>
-              <Route path="/" element={<Navigate to="/expenses" />} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </>
           ) : (
             <Route path="*" element={<Navigate to="/login" />} />

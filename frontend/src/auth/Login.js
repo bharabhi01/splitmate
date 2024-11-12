@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Message } from 'semantic-ui-react';
 import authService from '../services/authService';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ onLogin }) => {
     const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const Login = ({ onLogin }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,6 +32,7 @@ const Login = ({ onLogin }) => {
             onLogin(response.token);
             setLoading(false);
             setSuccess(response.message);
+            navigate('/dashboard');
         } catch (err) {
             setLoading(false);
             setError(err.response?.data?.message || 'Login failed. Please try again.');
