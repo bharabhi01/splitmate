@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
+const budgetRoutes = require("./routes/budgetRoutes");
 const cors = require("cors");
 
 dotenv.config();
@@ -18,7 +19,7 @@ app.use(
     })
 );
 
-app.use("/api/auth", authRoutes, expenseRoutes);
+app.use("/api/auth", authRoutes, expenseRoutes, budgetRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

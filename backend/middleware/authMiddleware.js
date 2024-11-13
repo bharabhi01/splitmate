@@ -8,7 +8,7 @@ exports.protect = async (req, res, next) => {
     }
 
     if (!token) {
-        return res.status(401).json({ message: 'Not authorized' });
+        return res.status(401).json({ message: 'Not authorized, no token' });
     }
 
     try {
@@ -16,6 +16,9 @@ exports.protect = async (req, res, next) => {
         req.user = await User.findById(decoded.id).select("-password");
         next();
     } catch (error) {
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({ message: "Token expired" });
+        }
         res.status(401).json({ message: "Not authorized" });
     }
 };
