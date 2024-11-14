@@ -47,3 +47,18 @@ exports.getBudgetOverview = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+exports.updateRemainingBudget = async (req, res) => {
+    const { amount } = req.body;
+    const userId = req.user._id;
+
+    try {
+        const budget = await Budget.findOne({ userId });
+        budget.expenseRemaining -= amount;
+
+        await budget.save();
+        res.status(200).json({ message: 'Budget updated successfully!', budget });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};
