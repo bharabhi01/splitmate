@@ -1,7 +1,6 @@
 import React from "react";
 import AddExpenses from "../components/BudgetTracker/AddExpenses";
 import ViewExpenses from "../components/BudgetTracker/ViewExpenses";
-import BudgetOverview from "../components/BudgetTracker/Budget/BudgetOverview";
 import SetBudget from "../components/BudgetTracker/Budget/SetBudget";
 
 const Dashboard = () => {
@@ -11,7 +10,6 @@ const Dashboard = () => {
             <AddExpenses />
             <ViewExpenses />
             <SetBudget />
-            <BudgetOverview />
         </div>
     );
 };

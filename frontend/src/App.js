@@ -39,9 +39,9 @@ function App() {
           <Route path='/login' element={<Login onLogin={handleLogin} />} />
 
           {localStorage.getItem('token') ? (
-            <>
-              <Route path="/dashboard" element={<Dashboard />} />
-            </>
+            <Route path="/dashboard" element={
+              <Dashboard />
+            } />
           ) : (
             <Route path="*" element={<Navigate to="/login" />} />
           )}

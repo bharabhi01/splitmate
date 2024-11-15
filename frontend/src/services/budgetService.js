@@ -11,4 +11,8 @@ const getBudgetOverview = async () => {
     return response.data;
 };
 
-export default { setBudget, getBudgetOverview };
+const updateBudget = async (amount) => {
+    return await axios.put(`${API_URL}/updateBudget`, { amount });
+}
+
+export default { setBudget, getBudgetOverview, updateBudget };
