@@ -5,9 +5,11 @@ import axios from 'axios';
 import Signup from './auth/Signup';
 import Login from './auth/Login';
 import Dashboard from './pages/Dashboard';
+import { Sidebar, SidebarPushable, Segment, Menu, MenuItem, Icon, Header, SidebarPusher } from 'semantic-ui-react';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [visible, setVisible] = useState(true)
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -40,7 +42,38 @@ function App() {
 
           {localStorage.getItem('token') ? (
             <Route path="/dashboard" element={
-              <Dashboard />
+              <SidebarPushable as={Segment}>
+                <Sidebar
+                  as={Menu}
+                  animation='overlay'
+                  icon='labeled'
+                  onHide={() => setVisible(false)}
+                  vertical
+                  visible={true}
+                  width='thin'
+                >
+                  <MenuItem as='a'>
+                    <Icon name='home' />
+                    Dashboard
+                  </MenuItem>
+                  <MenuItem as='a'>
+                    <Icon name='gamepad' />
+                    Budget Tracker
+                  </MenuItem>
+                  <MenuItem as='a'>
+                    <Icon name='camera' />
+                    Split Expenses
+                  </MenuItem>
+                  <MenuItem as='a'>
+                    <Icon name='user' />
+                    Abhishek Bhardwaj
+                  </MenuItem>
+                </Sidebar>
+
+                <SidebarPusher>
+                  <Dashboard />
+                </SidebarPusher>
+              </SidebarPushable>
             } />
           ) : (
             <Route path="*" element={<Navigate to="/login" />} />

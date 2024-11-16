@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import expenseService from '../../services/expenseService';
 import budgetService from '../../services/budgetService';
-import { Segment, Table } from 'semantic-ui-react';
+import { Segment, Table, Grid, Divider } from 'semantic-ui-react';
+import SetBudget from './Budget/SetBudget';
+import AddExpenses from './AddExpenses';
 
 const ViewExpenses = () => {
     const [expenses, setExpenses] = useState([]);
@@ -22,11 +24,21 @@ const ViewExpenses = () => {
 
     return (
         <Segment>
-            <div>
-                <h3>Budget Overview</h3>
-                <p>Expense Remaining: ${budgetData.expenseRemaining} </p>
-                <p>Investment Remaining: ${budgetData.investmentRemaining} </p>
-            </div>
+            <Segment placeholder>
+                <Grid columns={2} stackable textAlign='center'>
+                    <Divider vertical>
+                        <SetBudget />
+                    </Divider>
+                    <Grid.Row verticalAlign='middle'>
+                        <Grid.Column>
+                            Expense Remaining: ${budgetData.expenseRemaining}
+                        </Grid.Column>
+                        <Grid.Column>
+                            Investment Remaining: ${budgetData.investmentRemaining}
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </Segment>
             <Table celled>
                 <Table.Header>
                     <Table.Row>
@@ -47,7 +59,9 @@ const ViewExpenses = () => {
                     ))}
                 </Table.Body>
             </Table>
+            {/* <AddExpenses /> */}
         </Segment>
+
     )
 }
 
