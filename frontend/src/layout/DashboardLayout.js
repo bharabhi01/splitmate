@@ -1,12 +1,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { createTheme } from '@mui/material/styles';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { useDemoRouter } from '@toolpad/core/internal';
 import Dashboard from '../pages/Dashboard';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
 const NAVIGATION = [
     {
@@ -70,11 +72,22 @@ function DemoPageContent({ pathname }) {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
             }}
         >
-            <Dashboard />
+            <Breadcrumbs aria-label="breadcrumb" style={{ paddingLeft: '10px' }}>
+                <Link underline="hover" color="inherit" href="/">
+                    MUI
+                </Link>
+                <Link
+                    underline="hover"
+                    color="inherit"
+                    href="/material-ui/getting-started/installation/"
+                >
+                    Core
+                </Link>
+                <Typography sx={{ color: 'text.primary' }}>Breadcrumbs</Typography>
+            </Breadcrumbs>
+            {pathname === '/dashboard' && <Dashboard />}
         </Box>
     );
 }
@@ -84,12 +97,9 @@ DemoPageContent.propTypes = {
 };
 
 function DashboardLayoutBasic(props) {
-    const { window } = props;
-
     const router = useDemoRouter('/dashboard');
 
     return (
-        // preview-start
         <AppProvider
             navigation={NAVIGATION}
             router={router}
@@ -99,7 +109,6 @@ function DashboardLayoutBasic(props) {
                 <DemoPageContent pathname={router.pathname} />
             </DashboardLayout>
         </AppProvider>
-        // preview-end
     );
 }
 

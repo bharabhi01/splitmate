@@ -4,7 +4,7 @@ import ViewExpenses from "../components/BudgetTracker/ViewExpenses";
 
 const Dashboard = () => {
     return (
-        <div>
+        <div style={{ width: '100%', padding: '10px' }}>
             <ViewExpenses />
             <AddExpenses />
         </div>

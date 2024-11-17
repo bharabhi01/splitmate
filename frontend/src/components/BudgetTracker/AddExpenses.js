@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Message, Modal } from "semantic-ui-react";
 import expenseService from "../../services/expenseService";
-import SetBudget from "./Budget/SetBudget";
 
 const AddExpenses = () => {
     const [category, setCategory] = useState('');
@@ -29,7 +28,7 @@ const AddExpenses = () => {
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            size='large'
+            size='small'
             trigger={<Button>Add New Expense</Button>}
         >
             <Form onSubmit={handleSubmit} error={!!error}>
