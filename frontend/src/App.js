@@ -4,8 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import axios from 'axios';
 import Signup from './auth/Signup';
 import Login from './auth/Login';
-import Dashboard from './pages/Dashboard';
-import { Sidebar, SidebarPushable, Segment, Menu, MenuItem, Icon, Header, SidebarPusher } from 'semantic-ui-react';
+import DashboardLayout from './layout/DashboardLayout';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,7 +16,7 @@ function App() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setIsAuthenticated(true);
     } else {
-      setIsAuthenticated(false); // Ensure state is set to false if no token
+      setIsAuthenticated(false);
     }
   }, []);
 
@@ -42,38 +41,7 @@ function App() {
 
           {localStorage.getItem('token') ? (
             <Route path="/dashboard" element={
-              <SidebarPushable as={Segment}>
-                <Sidebar
-                  as={Menu}
-                  animation='overlay'
-                  icon='labeled'
-                  onHide={() => setVisible(false)}
-                  vertical
-                  visible={true}
-                  width='thin'
-                >
-                  <MenuItem as='a'>
-                    <Icon name='home' />
-                    Dashboard
-                  </MenuItem>
-                  <MenuItem as='a'>
-                    <Icon name='gamepad' />
-                    Budget Tracker
-                  </MenuItem>
-                  <MenuItem as='a'>
-                    <Icon name='camera' />
-                    Split Expenses
-                  </MenuItem>
-                  <MenuItem as='a'>
-                    <Icon name='user' />
-                    Abhishek Bhardwaj
-                  </MenuItem>
-                </Sidebar>
-
-                <SidebarPusher>
-                  <Dashboard />
-                </SidebarPusher>
-              </SidebarPushable>
+              <DashboardLayout />
             } />
           ) : (
             <Route path="*" element={<Navigate to="/login" />} />
