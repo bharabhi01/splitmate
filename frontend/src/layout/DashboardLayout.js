@@ -17,36 +17,11 @@ const NAVIGATION = [
     },
     {
         segment: 'dashboard',
-        title: 'Dashboard',
+        title: 'Budget Tracker',
     },
     {
         segment: 'orders',
-        title: 'Orders',
-    },
-    {
-        kind: 'divider',
-    },
-    {
-        kind: 'header',
-        title: 'Analytics',
-    },
-    {
-        segment: 'reports',
-        title: 'Reports',
-        children: [
-            {
-                segment: 'sales',
-                title: 'Sales',
-            },
-            {
-                segment: 'traffic',
-                title: 'Traffic',
-            },
-        ],
-    },
-    {
-        segment: 'integrations',
-        title: 'Integrations',
+        title: 'Split Expenses',
     },
 ];
 
@@ -76,16 +51,9 @@ function DemoPageContent({ pathname }) {
         >
             <Breadcrumbs aria-label="breadcrumb" style={{ paddingLeft: '10px' }}>
                 <Link underline="hover" color="inherit" href="/">
-                    MUI
+                    Dashboard
                 </Link>
-                <Link
-                    underline="hover"
-                    color="inherit"
-                    href="/material-ui/getting-started/installation/"
-                >
-                    Core
-                </Link>
-                <Typography sx={{ color: 'text.primary' }}>Breadcrumbs</Typography>
+                <Typography sx={{ color: 'text.primary' }}>Analytics</Typography>
             </Breadcrumbs>
             {pathname === '/dashboard' && <Dashboard />}
         </Box>
