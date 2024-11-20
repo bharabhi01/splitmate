@@ -1,55 +1,13 @@
+import React from 'react';
+import Dashboard from './components/BudgetForm/Dashboard';
 import './App.css';
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import axios from 'axios';
-import Signup from './auth/Signup';
-import Login from './auth/Login';
-import DashboardLayout from './layout/DashboardLayout';
 
-function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [visible, setVisible] = useState(true)
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, []);
-
-  const handleLogin = (token) => {
-    localStorage.setItem('token', token);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    setIsAuthenticated(true);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    delete axios.defaults.headers.common['Authorization'];
-    setIsAuthenticated(false);
-  };
-
+const App = () => {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login onLogin={handleLogin} />} />
-
-          {localStorage.getItem('token') ? (
-            <Route path="/dashboard" element={
-              <DashboardLayout />
-            } />
-          ) : (
-            <Route path="*" element={<Navigate to="/login" />} />
-          )}
-        </Routes>
-      </div>
-    </Router>
+    <div className="App">
+      <Dashboard />
+    </div>
   );
-}
+};
 
 export default App;
